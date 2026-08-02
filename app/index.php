@@ -5,6 +5,10 @@
     include_once("components/grid.php");
     include_once("components/glow.php");
     include_once("components/footer.php");
+    include_once("components/features.php");
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -74,8 +78,16 @@
 <!--MAIN-->
 <body class="font-body bg-navy-950 text-white antialiased selection:bg-teal-400 selection:text-navy-950">
 
+
   <!-- ============ HEADER ============ -->
-  <?php echo $header ?>
+  <?php 
+  echo $header;
+    /*if($_SESSION["logged_in"]){
+      echo $headerLogged;
+    }else{
+      echo $header;
+    }*/
+  ?>
 
   <!-- ============ HERO ============ -->
   <section class="relative overflow-hidden pt-12 pb-24 lg:pt-20 lg:pb-32">
@@ -93,7 +105,12 @@
       <!-- LOGO -->
       <?php echo $logo; ?> 
     </div>
+  
+     <!--FEATURES-->
+    <?php echo $features; ?>
   </section>
+
+ 
 
   <!-- ============ FOOTER ============ -->
   <?php echo $footer; ?>
