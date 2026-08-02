@@ -11,7 +11,7 @@
         // 1. Safely retrieve and sanitize inputs
         $name         = trim($_POST["name"] ?? '');
         $mail         = trim($_POST["mail"] ?? '');
-        $pswd         = $_POST["password"] ?? ''; // FIXED: Changed 'pswd' to 'password'
+        $pswd         = $_POST["password"] ?? '';
         $confirm_pswd = $_POST["password_confirmation"] ?? '';
         $terms        = isset($_POST["terms"]);
 

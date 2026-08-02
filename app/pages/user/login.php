@@ -21,7 +21,20 @@
             //Session vars
             $_SESSION['user_id']   = $user['id'];
             $_SESSION['user_name'] = $user['name'];
+            $_SESSION['user_email'] = $user['email'];
             $_SESSION['logged_in'] = true;
+
+            $words = preg_split('/\s+/', $name);
+            $initials = '';
+
+            //initials
+            foreach ($words as $word) {
+                $initials .= mb_substr($word, 0, 1, 'UTF-8');
+                if (mb_strlen($initials, 'UTF-8') >= $maxInitials) {
+                    break;
+                }
+            }
+            $_SESSION['user_initials'] = strtoupper($initials);
 
             // 4. Redirect alla pagina protetta / dashboard
             header("Location: ../../index.php");
