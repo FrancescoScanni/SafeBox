@@ -1,5 +1,8 @@
 <?php
     session_start();
+
+    require_once("../components/updateSuccess.php");
+    
     $_SESSION["dashboard_section"]="passwords";
     $activeNav = 'passwords'; // usata da sidebar.php per evidenziare la voce corrente
  
@@ -8,6 +11,7 @@
         ['id' => 1, 'initial' => 'G', 'name' => 'Gmail',    'username' => 'alex.morgan@gmail.com', 'password' => 'Tr0ub4dor&3xyz', 'category' => 'Personal',      'updated' => '2 days ago'],
     ];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,25 +47,41 @@
     <!-- ADD PASSWORD MODAL -->
     <?php require('../components/dashboard/addPSWD.php'); ?>
 
+    <!-- Toggle -->
     <script>
-    function togglePassword(id) {
-        const el = document.getElementById('pwd-' + id);
-        if (el.dataset.visible === 'true') {
-        el.textContent = '••••••••••';
-        el.dataset.visible = 'false';
-        } else {
-        el.textContent = el.dataset.value;
-        el.dataset.visible = 'true';
+        function togglePassword(id) {
+            const el = document.getElementById('pwd-' + id);
+            if (el.dataset.visible === 'true') {
+            el.textContent = '••••••••••';
+            el.dataset.visible = 'false';
+            } else {
+            el.textContent = el.dataset.value;
+            el.dataset.visible = 'true';
+            }
         }
-    }
 
-    function copyPassword(id) {
-        const el = document.getElementById('pwd-' + id);
-        if (navigator.clipboard) {
-        navigator.clipboard.writeText(el.dataset.value);
+        function copyPassword(id) {
+            const el = document.getElementById('pwd-' + id);
+            if (navigator.clipboard) {
+            navigator.clipboard.writeText(el.dataset.value);
+            }
         }
-    }
     </script>
+
+    <?php
+        $status = $_SESSION["password_status"] ?? null;
+        $message = $_SESSION["password_message"] ?? null;
+
+
+        if(isset($_SESSION["password_status"])){
+            if($_SESSION["password_status"]=="success"){
+                require_once("../components/addSuccess.php");
+                unset($_SESSION["password_status"]);
+                unset($_SESSION["password_message"]);
+            }else{
+            }
+        }
+    ?>
 
 </body>
 </html>

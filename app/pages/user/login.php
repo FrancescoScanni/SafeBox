@@ -24,8 +24,10 @@
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['logged_in'] = true;
 
-            $words = preg_split('/\s+/', $name);
+            $words = preg_split('/\s+/', $_SESSION['user_name']);
             $initials = '';
+
+            $maxInitials=1;
 
             //initials
             foreach ($words as $word) {

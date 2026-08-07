@@ -32,10 +32,9 @@
 
         // Process form
         if (!$err) {
-            $password=new Password($_SESSION['user_id'], $title, $initials, $username, $pswd, $category, date("Y-m-d H:i:s"));
+            $password=new Password($id, $_SESSION['user_id'], $title, $initials, $username, $pswd, $category, date("Y-m-d H:i:s"));
             try{
                 $password->createPassword($password->getUser_id(), $password->getName(), $password->getInitial(), $password->getUsername(), $password->getPassword(), $password->getCategory());
-                header("Location: dashboard.php");
             }catch(Exception $e){
                 echo "Error creating password: " . $e->getMessage();
             }

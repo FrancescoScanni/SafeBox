@@ -1,28 +1,29 @@
 <?php
     include_once("../../pages/db/confDB.php");
-
-    //DELETING A PASSWORD
     global $conn;
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-        $pswdName = $_GET['pswdName'] ?? null;
-        if ($pswdName) {
-
+        // Recupera l'ID al posto del nome
+        $id = $_GET['id'] ?? null; 
+        //echo "ID : " . htmlspecialchars($id) . debug
+        
+        if ($id) {
             try {
-                $stmt = $conn->prepare("DELETE FROM passwords WHERE name = ?");
-                $stmt->bind_param("s", $pswdName);
-                try{
-                    $stmt->execute();
+                
+                $stmt = $conn->prepare("DELETE FROM passwords WHERE id = ?");
+                $stmt->bind_param("i", $id); 
+                
+                if($stmt->execute()) {
                     header("Location: ../../pages/dashboard.php?section=passwords");
-                }catch(Exception $e){
-                    throw new Exception("Error deleting password: " . $e->getMessage());
+                    exit();
+                } else {
+                    throw new Exception("Execution failed");
                 }
-
             } catch (Exception $e) {
                 echo "Error deleting password: " . $e->getMessage();
             }
         } else {
-            echo "Password name is required.";
+            echo "Password ID is required.";
         }
     }
 ?>
